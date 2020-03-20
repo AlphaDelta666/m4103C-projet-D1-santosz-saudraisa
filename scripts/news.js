@@ -4,6 +4,8 @@ var recherches = [];
 var recherche_courante;
 // Tableau d'objets de type resultats (avec titre, date et url)
 var recherche_courante_news = [];
+//Ensemble des paragraphes
+var listeRecherche = document.getElementById('recherches-stockees');
 
 
 function ajouter_recherche() {
@@ -15,7 +17,6 @@ function ajouter_recherche() {
     recherches.push(recherche);
 
     //Ajout de la div
-    var listeRecherche = document.getElementById('recherches-stockees');
     //Création de p
     let newP = document.createElement('p');
     newP.className = "titre-recherche";
@@ -23,7 +24,7 @@ function ajouter_recherche() {
     let newLabel = document.createElement('label');
     newLabel.append(recherche);
     newLabel.setAttribute("onclick", "selectionner_recherche(this)");
-  
+
 
     //"Création" de l'image
     let croix = document.createElement('img')
@@ -41,7 +42,21 @@ function ajouter_recherche() {
 
 
 function supprimer_recherche(elt) {
-	console.log("supprimer");
+	//console.log("supprimer");
+  //Récupère le paragraphe contenant la croix cliqué
+  let p = elt.parentNode;
+  //On récupère le texte dans le label du p qu'on veux supprimer
+  let recherche = p.firstChild.innerHTML;
+  let indice = recherches.indexOf(recherche);
+  //On supprime 1 élément à partir de notre indice donc on supprime notre recherche
+  recherches.splice(indice, 1);
+  //Supprime le paragraphe de la liste de recherche
+  listeRecherche.removeChild(p);
+  console.log(recherches);
+
+
+
+
 }
 
 
