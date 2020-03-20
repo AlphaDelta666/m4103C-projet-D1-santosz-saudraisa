@@ -7,6 +7,27 @@ var recherche_courante_news = [];
 //Ensemble des paragraphes
 var listeRecherche = document.getElementById('recherches-stockees');
 
+function setP(elt){
+	let newP = document.createElement('p');
+	newP.className = "titre-recherche";
+	//Creation du label
+	let newLabel = document.createElement('label');
+	newLabel.append(elt);
+	newLabel.setAttribute("onclick", "selectionner_recherche(this)");
+
+
+	//"Création" de l'image
+	let croix = document.createElement('img')
+	croix.src = "img/croix30.jpg";
+	croix.className = "icone-croix";
+	croix.setAttribute("onclick", "supprimer_recherche(this)");
+
+	//Ajout du label et de l'image a p
+	newP.append(newLabel);
+	newP.append(croix);
+	//Ajout de p dans la liste de recherche
+	listeRecherche.append(newP);
+}
 
 function ajouter_recherche() {
 	var recherche = document.getElementById('zone_saisie').value;
@@ -18,25 +39,10 @@ function ajouter_recherche() {
 
     //Ajout de la div
     //Création de p
-    let newP = document.createElement('p');
-    newP.className = "titre-recherche";
-    //Creation du label
-    let newLabel = document.createElement('label');
-    newLabel.append(recherche);
-    newLabel.setAttribute("onclick", "selectionner_recherche(this)");
+		setP(recherche);
+		//Impossible de gérer le temps sans faire des appel incéssant
 
-
-    //"Création" de l'image
-    let croix = document.createElement('img')
-    croix.src = "img/croix30.jpg";
-    croix.className = "icone-croix";
-    croix.setAttribute("onclick", "supprimer_recherche(this)");
-
-    //Ajout du label et de l'image a p
-    newP.append(newLabel);
-    newP.append(croix);
-    //Ajout de p dans la liste de recherche
-    listeRecherche.append(newP);
+		localStorage.setItem("recherches", JSON.stringify(recherches));
   }
 }
 
@@ -52,7 +58,9 @@ function supprimer_recherche(elt) {
   recherches.splice(indice, 1);
   //Supprime le paragraphe de la liste de recherche
   listeRecherche.removeChild(p);
-  console.log(recherches);
+
+	localStorage.setItem("recherches", JSON.stringify(recherches));
+
 }
 
 
@@ -60,12 +68,16 @@ function selectionner_recherche(elt) {
 //	console.log("selectionner_recherche");
   document.getElementById("zone_saisie").value = elt.innerHTML;
   recherche_courante = elt.innerHTML;
-  console.log(recherche_courante);
 }
 
 
 function init() {
-	//TODO ...
+	if(JSON.parse(localStorage.getItem("recherches"))){
+		recherches = JSON.parse(localStorage.getItem("recherches"));
+		for(let i=0; i < recherches.length; i++){
+			setP(recherches[i]);
+		}
+	}
 }
 
 
