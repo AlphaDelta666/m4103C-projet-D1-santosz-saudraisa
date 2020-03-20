@@ -53,15 +53,14 @@ function supprimer_recherche(elt) {
   //Supprime le paragraphe de la liste de recherche
   listeRecherche.removeChild(p);
   console.log(recherches);
-
-
-
-
 }
 
 
 function selectionner_recherche(elt) {
-	console.log("selectionner_recherche");
+//	console.log("selectionner_recherche");
+  document.getElementById("zone_saisie").value = elt.innerHTML;
+  recherche_courante = elt.innerHTML;
+  console.log(recherche_courante);
 }
 
 
