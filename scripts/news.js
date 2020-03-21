@@ -104,8 +104,8 @@ function maj_resultats(res) {
 	//passage de res en format Objets
 	let resultats = JSON.parse(res);
 	let divRes = document.getElementById("resultats");
-	console.log(formatDate(resultats[0].date));
 	for(let i=0; i < resultats.length; i++){
+		//Création de l'élément P contenant les informations
 		let newP = document.createElement('p');
 		newP.className = 'titre_result';
 
@@ -121,7 +121,7 @@ function maj_resultats(res) {
 
 		let spanImg = document.createElement('span');
 		spanImg.className = 'action_news';
-		spanImg.onclick = 'sauver_nouvelle(this)';
+		spanImg.setAttribute('onclick', 'sauver_nouvelle(this)');
 
 		let img = document.createElement('img');
 		img.src = 'img/horloge15.jpg';
@@ -134,11 +134,27 @@ function maj_resultats(res) {
 		divRes.append(newP);
 	}
 
-	//TODO ...
 }
 
 
 function sauver_nouvelle(elt) {
+	elt.firstChild.src = 'img/disk15.jpg'
+	elt.onclick = 'supprimer_nouvelle(this)'
+
+	let p = elt.parentNode;
+
+	let objet = new Object();
+	objet.titre = p.childNodes[0].innerHTML;
+	objet.date = p.childNodes[1].innerHTML;
+	objet.url = p.childNodes[0].href;
+
+	if(indexOfResultat(recherche_courante_news, objet) == -1){
+		recherche_courante_news.push(objet);
+	}
+	console.log(recherche_courante_news);
+
+	//"Cookie"
+	localStorage.setItem(document.getElementById('zone_saisie').innerHTML, JSON.stringify(recherche_courante_news));
 	//TODO ...
 }
 
