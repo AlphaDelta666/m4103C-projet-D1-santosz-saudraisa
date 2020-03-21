@@ -68,7 +68,7 @@ function supprimer_recherche(elt) {
 function selectionner_recherche(elt) {
 //	console.log("selectionner_recherche");
   document.getElementById("zone_saisie").value = elt.innerHTML;
-  recherche_courante = elt.innerHTML;
+  //recherche_courante = elt.innerHTML;
 	recherche_courante_news = JSON.parse(localStorage.getItem(elt.innerHTML));
 	recherche_courante_news == null ? recherche_courante_news = [] : recherche_courante_news;
 }
@@ -88,6 +88,8 @@ function rechercher_nouvelles() {
 	//Vidage de la div resultats
 	let resultats = document.getElementById("resultats");
 	resultats.innerHTML = '';
+	//Redefinition de la variable recherche_courante
+	recherche_courante = document.getElementById('zone_saisie').value;
 
 	let wait = document.getElementById("wait");
 	wait.style.display = 'block';
@@ -168,7 +170,7 @@ function sauver_nouvelle(elt) {
 	//"Cookie"
 	//console.log(document.getElementById('zone_saisie').value);
 	let toConvert = recherche_courante_news;
-	localStorage.setItem(document.getElementById('zone_saisie').value, JSON.stringify(toConvert));
+	localStorage.setItem(recherche_courante, JSON.stringify(toConvert));
 	//TODO ...
 }
 
@@ -190,7 +192,7 @@ function supprimer_nouvelle(elt) {
 		//On s'assure de toujour avoir recherche_vourante_nws de définie
 		recherche_courante_news == null ? recherche_courante_news = [] : recherche_courante_news;
 		let toConvert = recherche_vourante_news;
-		localStorage.setItem(document.getElementById('zone_saisie').innerHTML, JSON.stringify(toConvert));
+		localStorage.setItem(recherche_courante, JSON.stringify(toConvert));
 	}
 	//console.log(recherche_courante_news);
 
