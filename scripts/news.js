@@ -49,7 +49,6 @@ function ajouter_recherche() {
   }
 }
 
-
 function supprimer_recherche(elt) {
 	//console.log("supprimer");
   //Récupère le paragraphe contenant la croix cliqué
@@ -66,11 +65,12 @@ function supprimer_recherche(elt) {
 
 }
 
-
 function selectionner_recherche(elt) {
 //	console.log("selectionner_recherche");
   document.getElementById("zone_saisie").value = elt.innerHTML;
   recherche_courante = elt.innerHTML;
+	recherche_courante_news = JSON.parse(localStorage.getItem(elt.innerHTML));
+	recherche_courante_news == null ? recherche_courante_news = [] : recherche_courante_news;
 }
 
 
@@ -92,7 +92,7 @@ function rechercher_nouvelles() {
 	let wait = document.getElementById("wait");
 	wait.style.display = 'block';
 	let data = document.getElementById("zone_saisie").value
-	console.log(data);
+	//console.log(data);
 	ajax_get_request(maj_resultats, URL+data, true);
 }
 
@@ -104,6 +104,8 @@ function maj_resultats(res) {
 	//passage de res en format Objets
 	let resultats = JSON.parse(res);
 	let divRes = document.getElementById("resultats");
+	// console.log(resultats);
+	// console.log(recherche_courante_news);
 	for(let i=0; i < resultats.length; i++){
 		//Création de l'élément P contenant les informations
 		let newP = document.createElement('p');
@@ -117,14 +119,23 @@ function maj_resultats(res) {
 
 		let spanDate = document.createElement('span');
 		spanDate.className = 'date_news';
-		spanDate.innerHTML = formatDate(resultats[i].date);
+		resultats[i].date = formatDate(resultats[i].date);
+		spanDate.innerHTML = resultats[i].date;
 
 		let spanImg = document.createElement('span');
 		spanImg.className = 'action_news';
-		spanImg.setAttribute('onclick', 'sauver_nouvelle(this)');
-
 		let img = document.createElement('img');
-		img.src = 'img/horloge15.jpg';
+
+		console.log(recherche_courante_news);
+		console.log(resultats[i]);
+		if(indexOfResultat(recherche_courante_news, resultats[i]) == -1){
+			spanImg.setAttribute('onclick', 'sauver_nouvelle(this)');
+			img.src = 'img/horloge15.jpg';
+		}else{
+			spanImg.setAttribute('onclick', 'supprimer_nouvelle(this)');
+			img.src = 'img/disk15.jpg'
+		}
+
 
 		spanImg.append(img);
 		newP.append(newA);
@@ -139,7 +150,7 @@ function maj_resultats(res) {
 
 function sauver_nouvelle(elt) {
 	elt.firstChild.src = 'img/disk15.jpg'
-	elt.onclick = 'supprimer_nouvelle(this)'
+	elt.setAttribute('onclick', 'supprimer_nouvelle(this)');
 
 	let p = elt.parentNode;
 
@@ -148,19 +159,41 @@ function sauver_nouvelle(elt) {
 	objet.date = p.childNodes[1].innerHTML;
 	objet.url = p.childNodes[0].href;
 
+	//Si recherche est null on le redefinie sinon c'est la marde
 	if(indexOfResultat(recherche_courante_news, objet) == -1){
 		recherche_courante_news.push(objet);
 	}
-	console.log(recherche_courante_news);
+	//console.log(recherche_courante_news);
 
 	//"Cookie"
-	localStorage.setItem(document.getElementById('zone_saisie').innerHTML, JSON.stringify(recherche_courante_news));
+	//console.log(document.getElementById('zone_saisie').value);
+	let toConvert = recherche_courante_news;
+	localStorage.setItem(document.getElementById('zone_saisie').value, JSON.stringify(toConvert));
 	//TODO ...
 }
 
 
 function supprimer_nouvelle(elt) {
-	//TODO ...
+	elt.firstChild.src = 'img/horloge15.jpg';
+	elt.setAttribute('onclick', 'sauver_nouvelle(this)');
+
+	let p = elt.parentNode;
+
+	let objet = new Object();
+	objet.titre = p.childNodes[0].innerHTML;
+	objet.date = p.childNodes[1].innerHTML;
+	objet.url = p.childNodes[0].href;
+
+	let index = indexOfResultat(recherche_courante_news, objet);
+	if( index != -1){
+		recherche_courante_news.splice(index, 1);
+		//On s'assure de toujour avoir recherche_vourante_nws de définie
+		recherche_courante_news == null ? recherche_courante_news = [] : recherche_courante_news;
+		let toConvert = recherche_vourante_news;
+		localStorage.setItem(document.getElementById('zone_saisie').innerHTML, JSON.stringify(toConvert));
+	}
+	//console.log(recherche_courante_news);
+
 }
 
 function ajax_get_request(callback, url, async) {
