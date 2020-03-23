@@ -10,7 +10,7 @@ var listeRecherche = document.getElementById('recherches-stockees');
 var URL = "https://carl-vincent.fr/search-internships.php?data=";
 
 
-function setP(elt){
+function setP(elt){ // VIEW.JS
 	let newP = document.createElement('p');
 	newP.className = "titre-recherche";
 	//Creation du label
@@ -32,7 +32,7 @@ function setP(elt){
 	listeRecherche.append(newP);
 }
 
-function ajouter_recherche() {
+function ajouter_recherche() {  //MODEL.JS
 	var recherche = document.getElementById('zone_saisie').value;
   //Retourne la valeur de l'indice de recherches[recherche] ou -1 si il n'y est pas
   var a = recherches.indexOf(recherche);
@@ -49,7 +49,7 @@ function ajouter_recherche() {
   }
 }
 
-function supprimer_recherche(elt) {
+function supprimer_recherche(elt) {//model && view
 	//console.log("supprimer");
   //Récupère le paragraphe contenant la croix cliqué
   let p = elt.parentNode;
@@ -65,7 +65,7 @@ function supprimer_recherche(elt) {
 
 }
 
-function selectionner_recherche(elt) {
+function selectionner_recherche(elt) { //MODEL.JS & CONTROLER.JS
 //	console.log("selectionner_recherche");
   document.getElementById("zone_saisie").value = elt.innerHTML;
   //recherche_courante = elt.innerHTML;
@@ -74,7 +74,7 @@ function selectionner_recherche(elt) {
 }
 
 
-function init() {
+function init() {//MODEL.JS
 	if(JSON.parse(localStorage.getItem("recherches"))){
 		recherches = JSON.parse(localStorage.getItem("recherches"));
 		for(let i=0; i < recherches.length; i++){
@@ -84,7 +84,7 @@ function init() {
 }
 
 
-function rechercher_nouvelles() {
+function rechercher_nouvelles() { //CONTROLER.JS & MODEL.JS
 	//Vidage de la div resultats
 	let resultats = document.getElementById("resultats");
 	resultats.innerHTML = '';
@@ -99,7 +99,7 @@ function rechercher_nouvelles() {
 }
 
 
-function maj_resultats(res) {
+function maj_resultats(res) { //MODEL.JS & VIEW.JS
 //On cache le truc de chargement
 	document.getElementById("wait").style.display = 'none';
 	//affichage des résultat
@@ -150,7 +150,7 @@ function maj_resultats(res) {
 }
 
 
-function sauver_nouvelle(elt) {
+function sauver_nouvelle(elt) { //CONTROLER.JS & MODEL.JS
 	elt.firstChild.src = 'img/disk15.jpg'
 	elt.setAttribute('onclick', 'supprimer_nouvelle(this)');
 
@@ -175,7 +175,7 @@ function sauver_nouvelle(elt) {
 }
 
 
-function supprimer_nouvelle(elt) {
+function supprimer_nouvelle(elt) {//CONTROLER.JS & MODEL.JS
 	elt.firstChild.src = 'img/horloge15.jpg';
 	elt.setAttribute('onclick', 'sauver_nouvelle(this)');
 

@@ -6,7 +6,7 @@
 	 <link rel="shortcut icon" type="image/x-icon" href="favicon-js.ico">
 	<link rel="stylesheet" type="text/css" media="screen" href="news.css">
 </head>
-<body onload="init();">
+<body onload="controler.init();">
 	<header>
 		<img id="banniere" src="img/job.png"/>
 	</header>
@@ -19,9 +19,9 @@
 		<h3 class="titre">nouvelle recherche</h3>
 		<div id="nouvelle-recherche">
 			<input type="text" name="zone_saisie" id="zone_saisie"/>
-			<img class="icone-disk" src="img/disk30.jpg" onclick="ajouter_recherche()" />
+			<img class="icone-disk" src="img/disk30.jpg" onclick="controler.ajouter_recherche()" />
 			<BR/>
-			<input type="button" value="OK" onclick="rechercher_nouvelles()"/>
+			<input type="button" value="OK" onclick="controler.rechercher_nouvelles()"/>
 		</div>
 	</div>
 
@@ -45,7 +45,12 @@
 	<script src="scripts/jquery.cookie.js"></script>
 
 	<script src="scripts/util.js"></script>
-	<script src="scripts/news.js"></script>
+	<script src="scripts/controler.js"></script>
+	<script src="scripts/view.js"></script>
+	<script src="scripts/model.js"></script>
+	<!--<script src="scripts/news.js"></script>-->
+
+	</script>
 
 </body>
 </html>
