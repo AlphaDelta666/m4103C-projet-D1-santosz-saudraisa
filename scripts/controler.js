@@ -25,6 +25,7 @@ controler.supprimer_recherche= function(elt){
 }
 controler.init = function(){
   if(model.getRecherchesLocalStorage()){
+    model.checkLocalStorage();
     model.initRecherches();
     for(let i=0; i < model.getRecherchesLength(); i++){
       view.setP(model.getRechercheElem(i));
