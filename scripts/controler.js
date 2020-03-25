@@ -21,7 +21,8 @@ controler.supprimer_recherche= function(elt){
   let recherche = view.getTextLabel(p);
   let indice = model.indexInRecherche(recherche);
   view.removeRecherche(p);
-  model.setLocalStorage(recherche);
+  model.supprimer_recherche(indice);
+  model.setLocalStorage();
 }
 controler.init = function(){
   if(model.getRecherchesLocalStorage()){
@@ -32,6 +33,13 @@ controler.init = function(){
     }
   }
   document.getElementById('zone_saisie').addEventListener('keypress', controler.autocomplete);
+  document.getElementById('zone_saisie').onkeypress = function(e){
+    var e = window.event || e;
+    let touche = e.keyCode;
+    if(touche == 13){
+      document.getElementById('OK').click();
+    }
+  }
 }
 controler.rechercher_nouvelles = function(elt){
   model.modifrecherchecourante(view.rechercher_nouvelles(elt));
@@ -85,6 +93,9 @@ controler.autocomplete = function(){
   document.getElementById('zone_saisie').setAttribute('list', 'listeRecherche');
 
 }
+
+
+
 function ajax_get_request(callback, url, async) {
 	// Instanciation d'un objet XHR
 	var xhr = new XMLHttpRequest();

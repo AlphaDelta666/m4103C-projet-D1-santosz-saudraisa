@@ -17,11 +17,13 @@ model.ajouter_recherche = function(elt){
 
 }
 model.supprimer_recherche = function(elt){
+  console.log(model.recherches);
   model.recherches.splice(elt, 1);
+  console.log(model.recherches);
 }
 
-model.setLocalStorage = function(elt){
-  localStorage.setItem("recherches", JSON.stringify(elt));
+model.setLocalStorage = function(){
+  localStorage.setItem("recherches", JSON.stringify(model.recherches));
 }
 model.getRecherchesLocalStorage = function(){
   return JSON.parse(localStorage.getItem("recherches"));

@@ -18,7 +18,7 @@ view.setP = function(elt){ // VIEW.JS
 	let croix = document.createElement('img')
 	croix.src = "img/croix30.jpg";
 	croix.className = "icone-croix";
-	croix.setAttribute("onclick", "supprimer_recherche(this)");
+	croix.setAttribute("onclick", "controler.supprimer_recherche(this)");
 
 	//Ajout du label et de l'image a p
 	newP.append(newLabel);
@@ -33,7 +33,7 @@ view.getTextLabel = function(elt){
   return elt.firstChild.innerHTML;
 }
 view.removeRecherche = function(elt){
-  document.getElementById('recherches-stockees').removeChild(p);
+  document.getElementById('recherches-stockees').removeChild(elt);
 }
 
 view.rechercher_nouvelles = function(elt){
