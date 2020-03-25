@@ -31,6 +31,7 @@ controler.init = function(){
       view.setP(model.getRechercheElem(i));
     }
   }
+  document.getElementById('zone_saisie').addEventListener('keypress', controler.autocomplete);
 }
 controler.rechercher_nouvelles = function(elt){
   model.modifrecherchecourante(view.rechercher_nouvelles(elt));
@@ -65,6 +66,25 @@ controler.supprimer_nouvelle = function(elt){
 
 }
 
+controler.autocomplete = function(){
+  console.log("passage");
+  let recherches = model.recherches;
+  let divRecherche = document.getElementById('nouvelle-recherche');
+  if(document.getElementById('listeRecherche')){
+    divRecherche.removeChild(document.getElementById('listeRecherche'));
+  }
+  let datalist = document.createElement('datalist');
+  datalist.setAttribute('id', 'listeRecherche');
+
+  for(let i=0; i < recherches.length; i++){
+    let option = document.createElement('option');
+    option.setAttribute('value', recherches[i]);
+    datalist.append(option);
+  }
+  divRecherche.append(datalist);
+  document.getElementById('zone_saisie').setAttribute('list', 'listeRecherche');
+
+}
 function ajax_get_request(callback, url, async) {
 	// Instanciation d'un objet XHR
 	var xhr = new XMLHttpRequest();
