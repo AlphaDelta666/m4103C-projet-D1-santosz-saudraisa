@@ -1,4 +1,7 @@
 var view = {};
+view.get_button_ok = function(){
+  return document.getElementById('OK');
+}
 view.set_zone_saisie = function(elt){
   document.getElementById("zone_saisie").value = elt;
 }

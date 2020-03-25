@@ -32,12 +32,12 @@ controler.init = function(){
       view.setP(model.getRechercheElem(i));
     }
   }
-  document.getElementById('zone_saisie').addEventListener('keypress', controler.autocomplete);
-  document.getElementById('zone_saisie').onkeypress = function(e){
+  view.get_zone_saisie().addEventListener('keypress', controler.autocomplete);
+  view.get_zone_saisie().onkeypress = function(e){
     var e = window.event || e;
     let touche = e.keyCode;
     if(touche == 13){
-      document.getElementById('OK').click();
+      view.get_button_ok.click();
     }
   }
 }
