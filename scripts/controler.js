@@ -90,7 +90,7 @@ controler.autocomplete = function(){
     datalist.append(option);
   }
   divRecherche.append(datalist);
-  document.getElementById('zone_saisie').setAttribute('list', 'listeRecherche');
+  view.get_zone_saisie().setAttribute('list', 'listeRecherche');
 
 }
 
