@@ -76,5 +76,39 @@ model.checkLocalStorage = function(){
       }
     }
   }
+}
 
+model.ajust_data = function(elt){
+  let months = ["January", "February", "March", "April", "May", "June",
+                "July", "August", "September", "October", "November", "December"];
+//  console.log(elt);
+  let chaines = elt.split(',');
+  console.log(elt);
+  // console.log(chaines);
+  for(let i=1; i<chaines.length; i = i+3){
+    let dateNonFormat = chaines[i].split(':');
+    //["date", " jour/mois heurehmin"]
+    dateNonFormat.splice(0,1)
+    //console.log(dateNonFormat);
+    dateNonFormat = dateNonFormat[0].split(' ');
+    //console.log(dateNonFormat[0] + " " +dateNonFormat[1] + " " + dateNonFormat[2]);
+    dateNonFormat.splice(0,1);
+    let jour = dateNonFormat[0].split('/')[0];
+    let mois = months[parseInt(dateNonFormat[0].split('/')[1])-1];
+    let horaire;
+    let heure
+    if(parseInt(dateNonFormat[1].split('h')[0], 10) > 12){
+      horaire = "pm";
+      heure = (parseInt(dateNonFormat[1].split('h')[0], 10) % 12).toString();
+    }else{
+      horaire = am;
+      heure = dateNonFormat[1].split('h')[0];
+    }
+    let min = dateNonFormat[1].split('h')[1].substring(0,2);
+    let dateFormat = jour + " " + mois + " " + "2020, "+ heure+":"+min + " "+horaire;
+    // console.log(chaines);
+    chaines[i] = "\"date\":\""+dateFormat+"\"";
+    // console.log(chaines);
+  }
+  return chaines;
 }

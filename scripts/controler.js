@@ -7,6 +7,10 @@ controler.selectionner_recherche = function(elt){
   view.set_zone_saisie(elt.innerHTML);
   //on modifie la variable recherche_courante_news
   model.setRechercheCouranteNew(elt.innerHTML);
+  let res = elt.innerHTML;
+  view.erase_zone_resultat();
+  res = model.ajust_data(localStorage.getItem(res));
+  controler.maj_resultats(res);
 }
 controler.ajouter_recherche = function(){
   var recherche = view.get_zone_saisie().value;
@@ -43,13 +47,16 @@ controler.init = function(){
 }
 controler.rechercher_nouvelles = function(elt){
   model.modifrecherchecourante(view.rechercher_nouvelles(elt));
-  let data = view.getdata(elt);
+  let data = view.getdata();
   ajax_get_request(controler.maj_resultats, URL+data, true);
 }
 
 controler.maj_resultats = function(elt){
   view.setDisplayWait('none');
+  //console.log(typeof elt);
   let resultats = JSON.parse(elt);
+  console.log(resultats);
+  //console.log(typeof resultats);
   model.setRechercheCouranteNew(view.get_zone_saisie().value);
   view.setDivResultat(resultats, model.getRecherchesCouranteNews());
 
