@@ -9,7 +9,7 @@ controler.selectionner_recherche = function(elt){
   model.setRechercheCouranteNew(elt.innerHTML);
 }
 controler.ajouter_recherche = function(){
-  var recherche = view.get_zone_saisie();
+  var recherche = view.get_zone_saisie().value;
   var indice = model.indexInRecherche(recherche);
   if(indice == -1){
     model.ajouter_recherche(recherche);
@@ -32,12 +32,12 @@ controler.init = function(){
       view.setP(model.getRechercheElem(i));
     }
   }
-  view.get_zone_saisie().addEventListener('keypress', controler.autocomplete);
+  view.get_zone_saisie().onkeypress = controler.autocomplete();
   view.get_zone_saisie().onkeypress = function(e){
     var e = window.event || e;
     let touche = e.keyCode;
     if(touche == 13){
-      view.get_button_ok.click();
+      view.get_button_ok().click();
     }
   }
 }

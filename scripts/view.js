@@ -6,7 +6,7 @@ view.set_zone_saisie = function(elt){
   document.getElementById("zone_saisie").value = elt;
 }
 view.get_zone_saisie = function(){
-  return document.getElementById('zone_saisie').value;
+  return document.getElementById('zone_saisie');
 }
 view.setP = function(elt){ // VIEW.JS
 	let newP = document.createElement('p');
@@ -78,8 +78,8 @@ view.setDivResultat = function(elt, elt2){
 		spanImg.className = 'action_news';
 		let img = document.createElement('img');
 
-		console.log(elt2);
-		console.log(elt[i]);
+		//console.log(elt2);
+		//console.log(elt[i]);
 		if(indexOfResultat(elt2, elt[i]) == -1){
 			spanImg.setAttribute('onclick', 'controler.sauver_nouvelle(this)');
 			img.src = 'img/horloge15.jpg';
