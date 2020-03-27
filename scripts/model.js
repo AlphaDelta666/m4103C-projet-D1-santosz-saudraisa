@@ -17,9 +17,9 @@ model.ajouter_recherche = function(elt){
 
 }
 model.supprimer_recherche = function(elt){
-  console.log(model.recherches);
+  //console.log(model.recherches);
   model.recherches.splice(elt, 1);
-  console.log(model.recherches);
+  //console.log(model.recherches);
 }
 
 model.setLocalStorage = function(){
@@ -66,11 +66,11 @@ model.checkLocalStorage = function(){
   let tempsActuelle = Date.now();
   for(let i=0; i< localStorage.length; i++){
     let key = localStorage.key(i);
-    console.log(key);
-    console.log(key.substring(0,4) );
+    //console.log(key);
+    //console.log(key.substring(0,4) );
     if(key.substring(0,4) == 'time'){
       let tempsRecherches = localStorage.getItem("timeRecherches");
-      console.log("chektime");
+      //console.log("chektime");
       if(tempsActuelle >= tempsRecherches){
         localStorage.setItem("recherches", null);
       }

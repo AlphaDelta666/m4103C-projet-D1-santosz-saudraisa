@@ -50,6 +50,7 @@ controler.rechercher_nouvelles = function(elt){
 controler.maj_resultats = function(elt){
   view.setDisplayWait('none');
   let resultats = JSON.parse(elt);
+  model.setRechercheCouranteNew(view.get_zone_saisie().value);
   view.setDivResultat(resultats, model.getRecherchesCouranteNews());
 
 }
