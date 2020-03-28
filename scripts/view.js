@@ -64,7 +64,8 @@ view.setDivResultat = function(elt, elt2){
   let divRes = document.getElementById("resultats");
 	// console.log(resultats);
 	// console.log(recherche_courante_news);
-	for(let i=0; i < elt.length; i++){
+  let i=0;
+	for(; i < elt.length; i++){
 		//Création de l'élément P contenant les informations
 		let newP = document.createElement('p');
 		newP.className = 'titre_result';
@@ -85,8 +86,8 @@ view.setDivResultat = function(elt, elt2){
 		spanImg.className = 'action_news';
 		let img = document.createElement('img');
 
-		console.log(elt2);
-		console.log(elt[i]);
+		//console.log(elt2);
+		//console.log(elt[i]);
 		if(indexOfResultat(elt2, elt[i]) == -1){
 			spanImg.setAttribute('onclick', 'controler.sauver_nouvelle(this)');
 			img.src = 'img/horloge15.jpg';
@@ -103,6 +104,7 @@ view.setDivResultat = function(elt, elt2){
 
 		divRes.append(newP);
 	}
+  document.getElementById('resultats_titre').innerHTML = "résultats ("+(i)+")";
 }
 view.setImageSave = function(elt){
   elt.firstChild.src = 'img/disk15.jpg';

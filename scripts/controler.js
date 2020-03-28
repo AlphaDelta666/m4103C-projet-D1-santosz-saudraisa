@@ -9,8 +9,12 @@ controler.selectionner_recherche = function(elt){
   model.setRechercheCouranteNew(elt.innerHTML);
   let res = elt.innerHTML;
   view.erase_zone_resultat();
-  res = model.ajust_data(localStorage.getItem(res));
-  controler.maj_resultats(res);
+  res = localStorage.getItem(res);
+  if(res != null){
+    res = model.ajust_data(res);
+    controler.maj_resultats(res);
+  }
+
 }
 controler.ajouter_recherche = function(){
   var recherche = view.get_zone_saisie().value;
@@ -55,7 +59,7 @@ controler.maj_resultats = function(elt){
   view.setDisplayWait('none');
   //console.log(typeof elt);
   let resultats = JSON.parse(elt);
-  console.log(resultats);
+  //console.log(resultats);
   //console.log(typeof resultats);
   model.setRechercheCouranteNew(view.get_zone_saisie().value);
   view.setDivResultat(resultats, model.getRecherchesCouranteNews());

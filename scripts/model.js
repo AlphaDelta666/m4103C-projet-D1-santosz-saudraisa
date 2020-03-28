@@ -83,7 +83,7 @@ model.ajust_data = function(elt){
                 "July", "August", "September", "October", "November", "December"];
 //  console.log(elt);
   let chaines = elt.split(',');
-  console.log(elt);
+  //console.log(elt);
   // console.log(chaines);
   for(let i=1; i<chaines.length; i = i+3){
     let dateNonFormat = chaines[i].split(':');
