@@ -104,7 +104,12 @@ view.setDivResultat = function(elt, elt2){
 
 		divRes.append(newP);
 	}
-  document.getElementById('resultats_titre').innerHTML = "résultats ("+(i)+")";
+  view.setNbResultat(i);
+
+}
+
+view.setNbResultat = function(NbResultat){
+  document.getElementById('resultats_titre').innerHTML = "résultats ("+(NbResultat)+")";
 }
 view.setImageSave = function(elt){
   elt.firstChild.src = 'img/disk15.jpg';

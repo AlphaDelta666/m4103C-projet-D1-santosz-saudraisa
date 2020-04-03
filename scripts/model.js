@@ -101,7 +101,7 @@ model.ajust_data = function(elt){
       horaire = "pm";
       heure = (parseInt(dateNonFormat[1].split('h')[0], 10) % 12).toString();
     }else{
-      horaire = am;
+      horaire = "am";
       heure = dateNonFormat[1].split('h')[0];
     }
     let min = dateNonFormat[1].split('h')[1].substring(0,2);

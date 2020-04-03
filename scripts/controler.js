@@ -13,6 +13,8 @@ controler.selectionner_recherche = function(elt){
   if(res != null){
     res = model.ajust_data(res);
     controler.maj_resultats(res);
+  }else{
+    view.setNbResultat(0);
   }
 
 }
